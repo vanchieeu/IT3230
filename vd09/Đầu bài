@@ -1,0 +1,48 @@
+Vd09 (29/11) Viết mã nguồn C thực hiện các công việc sau:
+a) Khai báo cấu trúc dữ liệu Person như ở slide trang 4, chương 4 (p2) nhưng có sự bổ sung thêm các trường sau: 
+char name[256], w (khối lượng), h (chiều cao), age (tuổi kiểu int). 
+===success===
+
+b) Viết hàm makePerson tương tự như hàm makeNode ở slide trang 4, 
+chương 4 (p2) nhưng bổ sung thêm các tham số char name[256], w (khối lượng), h (chiều cao), age (tuổi kiểu int).
+===success===
+
+c) Viết hàm findPerson tương tự như hàm find ở slide trang 5, chương 4 (p2)
+===success===
+
+d) Viết hàm addLeftChild với hai tham số u, left như hàm addLeftChild ở slide trang 5, chương 4 (p2)
+===success===
+
+e) Viết hàm addRightChild với ham tham số u, right như hàm addRightChild ở slide trang 6, chương 4 (p2)
+===success===
+
+f) viết hàm load( )  - không có tham số - thực hiện nhiệm vụ yêu cầu 
+người dùng nhập vào thông tin cho nút root (với kiểu dữ liệu của nó là Person*), 
+nhập xong thì các leftChild và rightChild được bằng NULL
+===success===
+
+g) viết hàm printTree(Person* r) tương tự như hàm printTree ở slide trang 8, chương 4 (p2)
+===success===
+
+h) viết hàm processLoad và printChildren(Person *p) tương tự như các hàm ở slide trang 10, 
+chương 4 (p2). Chú ý rằng processLoad chỉ đơn giản là gọi hàm load ở câu (f)
+===success===
+
+i) Viết hàm processFind và processPrint tương tự như các hàm ở slide trang 11, chương 4 (p2)
+===success===
+
+j) Viết hàm processAddLeftChild và processAddRightChild tương tự như các hàm ở slide trang 12, chương 4 (p2)
+===success===
+
+k) viết các hàm height và processHeight tương tự như các hàm ở slide trang 13, chương 4 (p2)
+===success===
+
+m) Viết các hàm count, printLeaves, processFindLeaves tương tự như các hàm ở slide trang 14, chương 4 (p2)	
+===success===
+
+n) viết các hàm processCount và freeTree tương tự như các hàm ở slide trang 15, chương 4 (p2)
+===success===
+
+o) viết hàm main tương tự như hàm main ở slide trang 16, chương 4 (p2). Nhưng ta bỏ đi chức năng “Store"
+===success===
+(40ph)

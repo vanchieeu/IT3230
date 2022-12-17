@@ -1,0 +1,30 @@
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/resource.h>
+
+static void timing(double* wcTime, double* cpuTime)
+{
+   struct timeval tp;
+   struct rusage ruse;
+
+   gettimeofday(&tp, NULL);
+   *wcTime=(double) (tp.tv_sec + tp.tv_usec/1000000.0);
+
+   getrusage(RUSAGE_SELF, &ruse);
+   *cpuTime=(double)(ruse.ru_utime.tv_sec+ruse.ru_utime.tv_usec / 1000000.0);
+}
+
+static void timing_(double* wcTime, double* cpuTime)
+{
+   timing(wcTime, cpuTime);
+}
+
+
+
+
+Khai báo 3 số thực: c1, c2, cpu;
+timing(&c1, &cpu);                      Trước khi thực thi hàm X
+X( );                                   Thực thi hàm X
+timing(&c2, &cpu);                      Sau khi thực thi xong hàm X
+c2 -= c1
+cout<<”Seconds: “<<c2<<endl;
