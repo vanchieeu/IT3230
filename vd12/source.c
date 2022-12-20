@@ -16,46 +16,82 @@ void insertInfo(person *info, int n) {
     char Ten[10][100] = {"An", "Bao", "Cong", "Dung", "Giang", "Hoa", "Kien", "Long", "Minh", "Nam"};
     
     for (int i = 0; i < n; i++) {
-        printf("Person %d:\n", i+1);
-        printf("        ");
-
         strcpy(info[i].name, Ho[rand()%10]);
         strcat(info[i].name, Dem[rand()%10]);
         strcat(info[i].name, Ten[rand()%10]);
 
-        info[i].birthday[0] = (char)(rand()%(3-0+1)+48);
-        if (info[i].birthday[0] == '3')
-            info[i].birthday[1] = (char)(rand()%2+48);
-        else if (info[i].birthday[0] == '0')
-            info[i].birthday[1] = (char)(rand()%(9-1+1)+1+48);
-        else
-            info[i].birthday[1] = (char)(rand()%10+48);
-        info[i].birthday[2] = '-';
-        info[i].birthday[3] = (char)(rand()%2+48);
-        if (info[i].birthday[3] == '0')
-            info[i].birthday[4] = (char)(rand()%(9-1+1)+1+48);
-        else
-            info[i].birthday[4] = (char)(rand()%2+48);
-        info[i].birthday[5] = '-';
-        info[i].birthday[6] = (char)(rand()%2+1+48);
-        if (info[i].birthday[6] == '1') {
-            info[i].birthday[7] = '9';
-            info[i].birthday[8] = '9';
-            info[i].birthday[9] = (char)(rand()%(9-1+1)+1+48);
-        }
-        else {
-            info[i].birthday[7] = '0';
-            info[i].birthday[8] = (char)(rand()%2+48);
-            if (info[i].birthday[8] == '1')
-                info[i].birthday[9] = '0';
-            else
-                info[i].birthday[9] = (char)(rand()%(9-1+1)+1+48);
-        }
+        char s[100];
+        int n = rand()%(31-1+1)+1;
+        if (n < 10) {
+            info[i].birthday[0] = '0';
+            strcat(info[i].birthday, itoa(n, s, 10));
+        } else
+            strcpy(info[i].birthday, itoa(n, s, 10));
+        strcat(info[i].birthday, "-");
 
+        n = rand()%(12-1+1)+1;
+        if (n < 10) {
+            strcat(info[i].birthday, "0");
+            strcat(info[i].birthday, itoa(n, s, 10));
+        } else
+            strcat(info[i].birthday, itoa(n, s, 10));
+        strcat(info[i].birthday, "-");
+
+        n = rand()%(2010-1990+1)+1990;
+        strcat(info[i].birthday, itoa(n, s, 10));
+    }
+}
+
+void printMinMax(person *info, int n) {
+    int min, max;
+    //printf("Cin min: ");
+    //scanf("%d", &min);
+    //printf("Cin max: ");
+    //scanf("%d", &max);
+
+    for (int i = 0; i < n; i++) {
+        printf("Person %d:\n", i+1);
+        printf("        ");
         printf("%s\n        %s\n", info[i].name, info[i].birthday);
     }
 }
 
+void swap(person *a, person *b) {
+    person temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void quickSort(person *info, int l, int r) {
+    person ptr = info[(l+r)/2];
+    int i = l, j = r;
+
+    while (i < j) {
+        while (strcmp(info[i].name, ptr.name) < 0)
+            i++;
+        while (strcmp(info[j].name, ptr.name) > 0)
+            j--;
+        
+        if (i <= j) {
+            swap(info+i, info+j);
+
+            i++;
+            j--;
+        }
+    }
+
+    if (i < r)
+        quickSort(info, i, r);
+    if (l < j)
+        quickSort(info, l, j);
+}
+
+void sortBirth(person *info, int n) {
+    for (int i = 0; i < n-1; i++)
+        for (int j = i+1; j<n;j++)
+            if (info[i].name == info[j].name && strcmp(info[i].birthday, info[j].birthday) > 0)
+                swap(info+i, info+j);
+}
 
 int main() {
     srand(time(NULL));
@@ -66,5 +102,13 @@ int main() {
     scanf("%d", &n);
 
     insertInfo(info, n);
+
+    printMinMax(info, n);
+    quickSort(info, 0, n-1);
+    printf("\nSort name:\n");
+    printMinMax(info, n);
+    sortBirth(info ,n);
+    printf("\nSort name + birthday:\n");
+    printMinMax(info, n);
     return 0;
 }
